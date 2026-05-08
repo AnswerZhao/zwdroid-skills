@@ -70,12 +70,12 @@ These mirror https://agentskills.io/skill-creation/using-scripts. Read it.
 
 ### Invocation
 
-Always use **relative paths from the skill root**. The agent harness resolves them automatically.
+Use `${CLAUDE_SKILL_DIR}` to reference bundled scripts, playbooks, and references. Claude Code executes bash commands with the project root as cwd, so relative paths like `scripts/foo.py` would resolve to `<project>/scripts/foo.py` rather than the skill directory. `${CLAUDE_SKILL_DIR}` is the only portable way to locate skill-bundled files regardless of where the skill is installed (project, personal, or plugin).
 
 ```
-✅ python3 scripts/foo.py
-✅ bash scripts/foo.sh
-❌ python3 ${SKILL_DIR}/scripts/foo.py     ← SKILL_DIR is undefined; this fails silently
+✅ python3 ${CLAUDE_SKILL_DIR}/scripts/foo.py
+✅ bash ${CLAUDE_SKILL_DIR}/scripts/foo.sh
+❌ python3 scripts/foo.py                   ← resolves to project root, not skill dir
 ❌ /absolute/path/scripts/foo.py            ← not portable
 ```
 

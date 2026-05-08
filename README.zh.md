@@ -9,6 +9,7 @@
 | 名称 | 用途 |
 |---|---|
 | [`zwdroid-android-jadx`](skills/zwdroid-android-jadx/) | 使用 jadx 反编译 Android APK / dex / jar / aar；将 logcat 与源码交叉引用以定位 Bug。 |
+| [`zwdroid-android-logcat-analysis`](skills/zwdroid-android-logcat-analysis/) | 解析 Android/AAOS logcat（threadtime 格式）；结构化事件索引、时间线、异常信号检测，以及 playbook 驱动的 framework 问题诊断。 |
 | [`zwdroid-unstuck`](skills/zwdroid-unstuck/) | 诊断多轮对话的卡顿点，给出下一步具体动作。 |
 
 ## 使用方式

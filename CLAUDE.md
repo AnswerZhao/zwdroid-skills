@@ -20,7 +20,7 @@ Open-source Claude Code skills authored by zwdroid. All skills namespaced with t
 - All skills use `zwdroid-` prefix (e.g., `zwdroid-android-jadx`).
 - **Python scripts**: stdlib only; target Python 3.9+ with `from __future__ import annotations`. Run with `--help` for usage.
 - **Shell scripts**: POSIX bash. Don't assume GNU coreutils flags.
-- **Script invocation in SKILL.md**: relative paths from skill root (`scripts/foo.py`), never `${SKILL_DIR}/...` or absolute paths. The agent harness resolves them.
+- **Script invocation in SKILL.md**: use `${CLAUDE_SKILL_DIR}` to reference bundled scripts, playbooks, and references. Claude Code executes bash commands in the project root, not the skill directory, so relative paths resolve to the wrong location. Never use absolute paths.
 - **Stdout/stderr split**: real data → stdout (pipe-friendly); diagnostics/progress → stderr.
 - **SKILL.md ≤ 500 lines**; offload deep content to `references/<topic>.md`.
 - **Explain why** in instructions, not just what. LLMs generalize from reasons.

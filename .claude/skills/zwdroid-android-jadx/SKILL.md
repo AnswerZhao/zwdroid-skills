@@ -149,7 +149,7 @@ For tricky cases (encrypted/packed APK, ProGuard mapping, encrypted strings) see
 Right after a successful full decompile (skip for `--no-src` and skip on cache hit), run the index builder:
 
 ```bash
-python3 scripts/build_xref_index.py "$WS"
+python3 ${CLAUDE_SKILL_DIR}/scripts/build_xref_index.py "$WS"
 ```
 
 Typical run takes 3–10 seconds on Termux-scale APKs and produces four JSON files in `$WS/`:
@@ -166,7 +166,7 @@ These power the Phase 4 "Strategy D" path below. The index is **best-effort**: i
 Run the manifest summary script to convert `AndroidManifest.xml` into a structured JSON summary. Read that JSON instead of the raw XML — it's an order of magnitude smaller, pre-classified, and lets you skip directly to high-signal items:
 
 ```bash
-python3 scripts/manifest_summary.py "$WS"
+python3 ${CLAUDE_SKILL_DIR}/scripts/manifest_summary.py "$WS"
 # Output: $WS/manifest_summary.json
 ```
 
@@ -224,7 +224,7 @@ jq '.field_access["TermuxService.mWakeLock"]' "$WS/xrefs.json"
 For "list methods of class" and "list fields of class" questions, also consider the class outline script — it returns full method/field declarations (signatures + line numbers) for a class without reading the body:
 
 ```bash
-python3 scripts/class_outline.py "$WS" com.termux.app.TermuxService
+python3 ${CLAUDE_SKILL_DIR}/scripts/class_outline.py "$WS" com.termux.app.TermuxService
 ```
 
 Use the outline before pulling the full class via `--single-class` — often the outline alone answers the question.
@@ -315,10 +315,10 @@ The report is the deliverable. Future sessions can read it without redoing the w
 
 ## Available scripts
 
-Invoke all scripts via **relative paths from the skill directory**. The agent harness resolves `scripts/...` automatically.
+Invoke all scripts via `${CLAUDE_SKILL_DIR}`. Claude Code executes bash commands in the project root, not the skill directory, so relative paths resolve to the wrong location.
 
-- **`scripts/build_xref_index.py <ws>`** — Phase 2.x. Builds `classes.json` / `xrefs.json` / `package_layout.json` / `index_meta.json` in `$WS/`. Pass `--rebuild` to ignore cached index. Pass `--quiet` to suppress progress lines.
-- **`scripts/manifest_summary.py <ws>`** — Phase 3. Emits structured `manifest_summary.json` from `$WS/resources/AndroidManifest.xml`. Pass `--stdout` to print JSON instead of writing to a file.
-- **`scripts/class_outline.py <ws> <fqcn>`** — Phase 4. Prints method/field signatures for a class without reading the body. Pass `--file path.java` to operate on a single extracted class instead of the workspace.
+- **`${CLAUDE_SKILL_DIR}/scripts/build_xref_index.py <ws>`** — Phase 2.x. Builds `classes.json` / `xrefs.json` / `package_layout.json` / `index_meta.json` in `$WS/`. Pass `--rebuild` to ignore cached index. Pass `--quiet` to suppress progress lines.
+- **`${CLAUDE_SKILL_DIR}/scripts/manifest_summary.py <ws>`** — Phase 3. Emits structured `manifest_summary.json` from `$WS/resources/AndroidManifest.xml`. Pass `--stdout` to print JSON instead of writing to a file.
+- **`${CLAUDE_SKILL_DIR}/scripts/class_outline.py <ws> <fqcn>`** — Phase 4. Prints method/field signatures for a class without reading the body. Pass `--file path.java` to operate on a single extracted class instead of the workspace.
 
 All Python scripts use **stdlib only** (no PyPI dependencies). Run any script with `--help` for full usage.

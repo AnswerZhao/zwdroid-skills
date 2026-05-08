@@ -9,6 +9,7 @@ All skills are namespaced with the `zwdroid-` prefix.
 | Name | Purpose |
 |---|---|
 | [`zwdroid-android-jadx`](skills/zwdroid-android-jadx/) | Decompile Android APK / dex / jar / aar with jadx; cross-reference logcat to source for bug investigation. |
+| [`zwdroid-android-logcat-analysis`](skills/zwdroid-android-logcat-analysis/) | Parse Android/AAOS logcat (threadtime); structured event indexing, timeline, signal detection, and playbook-driven framework diagnosis. |
 | [`zwdroid-unstuck`](skills/zwdroid-unstuck/) | Diagnose where a multi-turn dialogue is stuck and suggest the next concrete action. |
 
 ## Use
