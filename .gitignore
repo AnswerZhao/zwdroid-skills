@@ -1,0 +1,10 @@
+# Dev artifacts (specs, todos, test fixtures, eval results) — kept locally
+# alongside skills for convenience but not part of the public skill source.
+devdoc/
+
+# Python bytecode (in case it slips into a skill's scripts/)
+__pycache__/
+*.pyc
+
+# OS noise
+.DS_Store
